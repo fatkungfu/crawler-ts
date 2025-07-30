@@ -1,0 +1,25 @@
+{
+  "name": "crawler-ts",
+  "version": "1.0.0",
+  "description": "SEO link analyzer",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "tsx ./src/index.ts",
+    "test": "vitest run"
+  },
+  "keywords": [],
+  "author": "fatkungfu",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jsdom": "^21.1.7",
+    "@types/node": "^24.1.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "jsdom": "^26.1.0",
+    "p-limit": "^6.2.0"
+  }
+}
