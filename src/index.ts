@@ -1,4 +1,5 @@
 import { crawlSiteAsync } from "./crawl";
+import { printReport } from "./report";
 
 async function main() {
   if (process.argv.length < 3) {
@@ -15,8 +16,7 @@ async function main() {
 
   const pages = await crawlSiteAsync(baseURL);
 
-  console.log(pages);
-
+  printReport(pages, baseURL);
   process.exit(0);
 }
 

@@ -3,9 +3,9 @@ import pLimit from "p-limit";
 
 export function normalizeURL(url: string) {
   const urlObj = new URL(url);
-  let fullPath = `${urlObj.hostname}${urlObj.pathname}`;
+  let fullPath = `${urlObj.host}${urlObj.pathname}`;
   if (fullPath.slice(-1) === "/") {
-    fullPath = fullPath.slice(0, -1); // Remove trailing slash
+    fullPath = fullPath.slice(0, -1);
   }
   return fullPath;
 }
@@ -36,7 +36,7 @@ class ConcurrentCrawler {
   private pages: Record<string, number>;
   private limit: <T>(fn: () => Promise<T>) => Promise<T>;
 
-  constructor(baseURL: string, maxConcurrency: number = 1) {
+  constructor(baseURL: string, maxConcurrency: number = 5) {
     this.baseURL = baseURL;
     this.pages = {};
     this.limit = pLimit(maxConcurrency);
@@ -76,7 +76,6 @@ class ConcurrentCrawler {
   }
 
   private async crawlPage(currentURL: string): Promise<void> {
-    // if this is an offsite URL, bail immediately
     const currentURLObj = new URL(currentURL);
     const baseURLObj = new URL(this.baseURL);
     if (currentURLObj.hostname !== baseURLObj.hostname) {
@@ -86,9 +85,6 @@ class ConcurrentCrawler {
     // use a consistent URL format
     const normalizedURL = normalizeURL(currentURL);
 
-    // if we've already visited this page
-    // just increase the count and don't repeat
-    // the http request
     if (!this.addPageVisit(normalizedURL)) {
       return;
     }

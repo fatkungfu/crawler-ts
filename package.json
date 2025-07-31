@@ -10,7 +10,6 @@
   },
   "keywords": [],
   "author": "fatkungfu",
-  "license": "ISC",
   "devDependencies": {
     "@types/jsdom": "^21.1.7",
     "@types/node": "^24.1.0",
